@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Android KDSL</string>
+    <string name="alert.title">alert title</string>
+    <string name="action">action</string>
 </resources>
