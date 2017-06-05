@@ -47,7 +47,8 @@ The simple alert dialog:
         }
         }
        
-    # Fragments
+       
+ # Fragments
     Find fragment by tag
     
         fragmentByTag<SupportMapFragment>("map")?.getMapAsync { map ->
