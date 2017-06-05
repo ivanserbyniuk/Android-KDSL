@@ -47,5 +47,14 @@ The simple alert dialog:
         }
         }
        
+    # Fragments
+    Find fragment by tag
     
+        fragmentByTag<SupportMapFragment>("map")?.getMapAsync { map ->
+            map.addMarker(makeMarkerOptions())
+            //... other work with map
+        }
+    Find fragemtn by id
+    
+        val currentFragment = fragmentById<SampleFragment>(R.id.fragmentContainer)
 
