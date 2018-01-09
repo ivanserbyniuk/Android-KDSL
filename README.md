@@ -47,7 +47,7 @@ The simple alert dialog:
         }
         }
  # Preferences
- Use shared preferences in easy way
+ Use shared preferences in easy way. 
  BaseSettings provide pref[type] methods
  
       class UserSettings(context: Context) : BaseSettings(context) {
@@ -56,7 +56,7 @@ The simple alert dialog:
         var ok by prefBoolean()
       }
 
-pref[type] - provide delegate which uses setter of property for saving data in shared prefference and use getter for restoring data. In this case name of property is the key for Prefference.Editor
+pref[type] - returns the delegate which uses the setter of property for saving data in the shared prefference and uses the getter for restoring data. In this case name of property is the key for Prefference.Editor
 
         //create settings
         val settings = Settings(this)
