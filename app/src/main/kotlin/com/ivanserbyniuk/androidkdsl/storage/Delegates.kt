@@ -3,7 +3,7 @@ package storage
 import android.content.SharedPreferences
 import kotlin.reflect.KProperty
 
-class PrefStringDelegate(val preferences: SharedPreferences) {
+class PrefStringDelegate(private val preferences: SharedPreferences) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
         return preferences.getString(property.name, "")
     }
@@ -14,7 +14,7 @@ class PrefStringDelegate(val preferences: SharedPreferences) {
 }
 
 
-class PrefLongDelegate(val preferences: SharedPreferences) {
+class PrefLongDelegate(private val preferences: SharedPreferences) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): Long {
         return preferences.getLong(property.name, -1)
     }
@@ -24,7 +24,7 @@ class PrefLongDelegate(val preferences: SharedPreferences) {
     }
 }
 
-class PrefIntDelegate(val preferences: SharedPreferences, val defVal: Int = -1) {
+class PrefIntDelegate(private val preferences: SharedPreferences, val defVal: Int = -1) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
         return preferences.getInt(property.name, defVal)
     }
@@ -34,7 +34,7 @@ class PrefIntDelegate(val preferences: SharedPreferences, val defVal: Int = -1) 
     }
 }
 
-class PrefBooleanDelegate(val preferences: SharedPreferences, val defVal: Boolean = false) {
+class PrefBooleanDelegate(private val preferences: SharedPreferences, private val defVal: Boolean = false) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>): Boolean {
         return preferences.getBoolean(property.name, defVal)
     }
