@@ -11,7 +11,7 @@ class StorageSampleActivity :AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //create storage
-        val storage = Storage(this)
+        val storage = UserSettings(this)
         //save to storage
         storage.name = " Test"
         storage.age = 12
