@@ -46,7 +46,30 @@ The simple alert dialog:
             }
         }
         }
-       
+ # Preferences
+ Use shared preferences in easy way
+ BaseSettings provide pref[type] methods
+ 
+      class UserSettings(context: Context) : BaseSettings(context) {
+        var name by prefString()
+        var age by prefInt()
+        var ok by prefBoolean()
+      }
+
+pref[type] - provide delegate which uses setter of property for saving data in shared prefference and use getter for restoring data. In this case name of property is the key for Prefference.Editor
+
+        //create settings
+        val settings = Settings(this)
+        //save to storage
+        settings.name = " Test"
+        settings.age = 12
+        settings.ok = true
+
+        //restore from settings
+        val name = settings.name
+        val age = settings.age
+        val ok = settings.ok
+    }
        
  # Fragments
     Find fragment by tag
