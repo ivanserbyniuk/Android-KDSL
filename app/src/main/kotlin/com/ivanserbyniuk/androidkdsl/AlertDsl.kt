@@ -1,4 +1,5 @@
 package com.ivanserbyniuk.androidkdsl
+
 import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
@@ -34,24 +35,28 @@ fun AlertDialog.Builder.message(message: String) = setMessage(message)
 fun AlertDialog.Builder.message(@StringRes message: Int) = setMessage(message)
 fun AlertDialog.Builder.okButton(ok: String, action: (() -> Unit)? = null) = setPositiveButton(ok, { dialog, what -> action?.invoke() })
 fun AlertDialog.Builder.okButton(@StringRes ok: Int = android.R.string.ok, action: (() -> Unit)? = null) = setPositiveButton(ok, { _, _ -> action?.invoke() })
-fun AlertDialog.Builder.cancelButton(cancel: String, action: (() -> Unit)? = null) =  setNegativeButton(cancel, { _, _ -> action?.invoke() })
+fun AlertDialog.Builder.cancelButton(cancel: String, action: (() -> Unit)? = null) = setNegativeButton(cancel, { _, _ -> action?.invoke() })
 fun AlertDialog.Builder.cancelButton(@StringRes cancel: Int = android.R.string.cancel, action: (() -> Unit)? = null) = setNegativeButton(cancel, { _, _ -> action?.invoke() })
-fun AlertDialog.Builder.neutralButton(cancel: String, action: (() -> Unit)? = null) =  setNeutralButton(cancel, { _, _ -> action?.invoke() })
-fun AlertDialog.Builder.neutralButton(@StringRes cancel: Int =android.R.string.untitled, action: (() -> Unit)? = null) =  setNeutralButton(cancel, { _, _ -> action?.invoke() })
+fun AlertDialog.Builder.neutralButton(cancel: String, action: (() -> Unit)? = null) = setNeutralButton(cancel, { _, _ -> action?.invoke() })
+fun AlertDialog.Builder.neutralButton(@StringRes cancel: Int = android.R.string.untitled, action: (() -> Unit)? = null) = setNeutralButton(cancel, { _, _ -> action?.invoke() })
+fun AlertDialog.Builder.cancelable() = setCancelable(true)
 
-fun AlertDialog.Builder.icon(@DrawableRes icon: Int) =  setIcon(icon)
+fun AlertDialog.Builder.icon(@DrawableRes icon: Int) = setIcon(icon)
 fun AlertDialog.Builder.icon(icon: Drawable) = setIcon(icon)
-fun AlertDialog.Builder.iconVector(@DrawableRes icon: Int) = setIcon( VectorDrawableCompat.create(context.resources, icon, context.theme))
+fun AlertDialog.Builder.iconVector(@DrawableRes icon: Int) = setIcon(VectorDrawableCompat.create(context.resources, icon, context.theme))
 fun AlertDialog.Builder.contentView(view: View?) = apply { setView(view) }
 fun AlertDialog.Builder.contentView(view: Int) = apply { setView(view) }
-fun AlertDialog.Builder.list(list:List<String>, itemSelected:(Int) ->Unit) = apply {
+
+
+fun AlertDialog.Builder.list(list: List<String>, itemSelected: (Int) -> Unit) = apply {
     val arrayAdapter = ArrayAdapter<String>(context, android.R.layout.select_dialog_item)
     arrayAdapter.addAll(list)
-    setAdapter(arrayAdapter){ _, what -> itemSelected(what)} }
+    setAdapter(arrayAdapter) { _, what -> itemSelected(what) }
+}
 
-fun AlertDialog.Builder.listRes (list:List<Int>, itemSelected:(Int) ->Unit) = apply {
+fun AlertDialog.Builder.listRes(list: List<Int>, itemSelected: (Int) -> Unit) = apply {
     val listString = list.map { context.getString(it) }
-    list(listString,itemSelected)
+    list(listString, itemSelected)
 }
 
 

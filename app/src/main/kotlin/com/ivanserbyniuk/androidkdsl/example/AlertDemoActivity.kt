@@ -32,14 +32,14 @@ class AlertDemoActivity : AppCompatActivity() {
             okButton("accept") { /*do something*/ }
             cancelButton("close")
             neutralButton("maybe") { /*do something*/ }
-            setCancelable(false)
+            cancelable()
         }
     }
 
     private fun simpleCustomAlert() {
-        val view = LayoutInflater.from(this).inflate(R.layout.view_info, FrameLayout(this))
+        val view = inflate(R.layout.view_info)
         val dialog = alertDialog { contentView(view) }
-        view?.findViewById(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
+        view.findViewById(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
         //..and other listeners
         dialog.show()
     }
@@ -48,7 +48,7 @@ class AlertDemoActivity : AppCompatActivity() {
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             val view = LayoutInflater.from(activity).inflate(R.layout.view_info, FrameLayout(activity))
             view?.findViewById(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
-            //..and otheer listeners
+            //..and other listeners
             return alertDialog {
                 title(R.string.alert_title)
                 contentView(view)

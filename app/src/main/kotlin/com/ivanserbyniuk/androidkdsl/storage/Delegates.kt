@@ -1,6 +1,7 @@
 package storage
 
 import android.content.SharedPreferences
+import java.util.*
 import kotlin.reflect.KProperty
 
 class PrefStringDelegate(private val preferences: SharedPreferences) {
@@ -41,6 +42,26 @@ class PrefBooleanDelegate(private val preferences: SharedPreferences, private va
 
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Boolean) {
         preferences.edit().putBoolean(property.name, value).apply()
+    }
+}
+
+class PrefFloatDelegate(private val preferences: SharedPreferences, private val defVal: Float = 0f) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): Float {
+        return preferences.getFloat(property.name, defVal)
+    }
+
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Float) {
+        preferences.edit().putFloat(property.name, value).apply()
+    }
+}
+
+class PrefStringSetDelegate(private val preferences: SharedPreferences, private val defVal: Set<String> = Collections.emptySet()) {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): Set<String> {
+        return preferences.getStringSet(property.name, defVal)
+    }
+
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Set<String>) {
+        preferences.edit().putStringSet(property.name, value).apply()
     }
 }
 

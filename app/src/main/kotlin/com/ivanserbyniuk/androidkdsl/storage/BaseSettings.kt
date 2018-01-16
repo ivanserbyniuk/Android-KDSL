@@ -12,4 +12,6 @@ open class BaseSettings(val context: Context) {
     fun prefLong() = PrefLongDelegate(preferences)
     fun prefInt(defVal: Int = -1) = PrefIntDelegate(preferences, defVal)
     fun prefBoolean() = PrefBooleanDelegate(preferences)
+    fun prefFloat() = PrefFloatDelegate(preferences)
+    fun prefStringSet() = PrefStringDelegate(preferences)
 }
