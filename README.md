@@ -11,41 +11,43 @@ The simple alert dialog:
     }
  The complex alert dialog
  
-     private fun moreComplexAlert() {
-        alert {
-            title("title")
-            message("some message")
-            iconVector(android.R.drawable.ic_delete)
-            okButton("accept") { /*do something*/ }
-            cancelButton("close")
-            neutralButton("maybe") { /*do something*/ }
-            setCancelable(false)
+      private fun moreComplexAlert() {
+            alert {
+                title("title")
+                message("some message")
+                iconVector(android.R.drawable.ic_delete)
+                okButton("accept") { /*do something*/ }
+                cancelButton("close")
+                neutralButton("maybe") { /*do something*/ }
+                cancelable()
+            }
         }
-      }
+        
   Alert dialog with custom view
   
       private fun simpleCustomAlert() {
-        val view = LayoutInflater.from(this).inflate(R.layout.view_info, FrameLayout(this))
-        val dialog = alertDialog { contentView(view) }
-        view?.findViewById(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
-        //..and other listeners
-        dialog.show()
-     }
+              val view = inflate(R.layout.view_info)
+              val dialog = alertDialog { contentView(view) }
+              view.findViewById(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
+              //..and other listeners
+              dialog.show()
+          }
     
-    Alerts in dialog fragment
+   Alerts in dialog fragment
     
-        class AlertDialogFragment : DialogFragment() {
-        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-            val view = LayoutInflater.from(activity).inflate(R.layout.view_info, FrameLayout(activity))
-            view?.findViewById(R.id.btnClose)?.setOnClickListener { dialog.dismiss() }
-            //..and otheer listeners
-            return alertDialog {
-                title(R.string.alert_title)
-                contentView(view)
-                setCancelable(false)
-            }
-        }
-        }
+       class AlertDialogFragment : DialogFragment() {
+       
+               override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+                   val view = context.inflate(R.layout.view_info)
+                   view.findViewById(R.id.btnClose).setOnClickListener { dialog.dismiss() }
+                   //..and other listeners
+                   return alertDialog {
+                       title(R.string.alert_title)
+                       contentView(view)
+                       setCancelable(false)
+                   }
+               }
+           }
  # Preferences
  Use shared preferences in easy way. 
  BaseSettings provide pref[type] methods
@@ -58,25 +60,29 @@ The simple alert dialog:
 
 pref[type] - returns the delegate which uses the setter of property for saving data in the shared prefference and uses the getter for restoring data. In this case name of property is the key for Prefference.Editor
 
-        //create settings
+create settings
+
         val settings = Settings(this)
-        //save to storage
+        
+save to storage
+      
         settings.name = " Test"
         settings.age = 12
         settings.ok = true
+restore from settings
 
-        //restore from settings
         val name = settings.name
         val age = settings.age
         val ok = settings.ok
-    }
        
  # Fragments
  Find fragment by tag
+ 
         fragmentByTag<SupportMapFragment>("map")?.getMapAsync { map ->
             map.addMarker(makeMarkerOptions())
             //... other work with map
         }
-Find fragemtn by id
+Find fragment by id
+
         val currentFragment = fragmentById<SampleFragment>(R.id.fragmentContainer)
 

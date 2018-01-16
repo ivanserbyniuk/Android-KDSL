@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 
 
 fun Context.inflate(@IdRes id: Int): View {
+
     return LayoutInflater.from(this).inflate(R.layout.view_info, FrameLayout(this))
 
 }
