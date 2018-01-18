@@ -11,8 +11,7 @@ The simple alert dialog:
     }
  The complex alert dialog
  
-      private fun moreComplexAlert() {
-            alert {
+      private fun moreComplexAlert() = alert {
                 title("title")
                 message("some message")
                 iconVector(android.R.drawable.ic_delete)
@@ -21,7 +20,6 @@ The simple alert dialog:
                 neutralButton("maybe") { /*do something*/ }
                 cancelable()
             }
-        }
         
   Alert dialog with custom view
   
@@ -46,6 +44,26 @@ The simple alert dialog:
                        contentView(view)
                        setCancelable(false)
                    }
+               }
+           }
+           
+   Alert with Item List
+   
+   with varargs
+   
+           alert {
+               title(R.string.alert_title)
+               list("One", "Two", "Three") { index, value ->
+                   Toast.makeText(context, "Selected value $value with index $index", Toast.LENGTH_SHORT).show()
+               }
+           }
+   or with list
+   
+           val values = listOf ("One", "Two", "Three")
+           alert {
+               title(R.string.alert_title)
+               list(values) { index  ->
+                   Toast.makeText(context, "Selected value ${values[index]}", Toast.LENGTH_SHORT).show()
                }
            }
  # Preferences
@@ -85,4 +103,13 @@ restore from settings
 Find fragment by id
 
         val currentFragment = fragmentById<SampleFragment>(R.id.fragmentContainer)
+        
+Fragment transaction
+        
+        supportFragmentTransaction { replace(R.id.fragmentContainer, SampleFragment.create()) }
+        childFragmentTransaction { remove(testFragment)
+                                   add(R.id.contentPanel, SampleFragment.create()) 
+                                   }
+
+
 

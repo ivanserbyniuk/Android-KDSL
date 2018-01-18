@@ -3,6 +3,7 @@ package com.ivanserbyniuk.androidkdsl
 import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
+import android.support.annotation.IdRes
 import android.support.annotation.StringRes
 import android.support.graphics.drawable.VectorDrawableCompat
 import android.support.v4.app.Fragment
@@ -45,18 +46,20 @@ fun AlertDialog.Builder.icon(@DrawableRes icon: Int) = setIcon(icon)
 fun AlertDialog.Builder.icon(icon: Drawable) = setIcon(icon)
 fun AlertDialog.Builder.iconVector(@DrawableRes icon: Int) = setIcon(VectorDrawableCompat.create(context.resources, icon, context.theme))
 fun AlertDialog.Builder.contentView(view: View?) = apply { setView(view) }
-fun AlertDialog.Builder.contentView(view: Int) = apply { setView(view) }
 
 
-fun AlertDialog.Builder.list(list: List<String>, itemSelected: (Int) -> Unit) = apply {
-    val arrayAdapter = ArrayAdapter<String>(context, android.R.layout.select_dialog_item)
+fun AlertDialog.Builder.list(vararg items: String, @IdRes resId: Int = android.R.layout.select_dialog_item,
+                             itemSelected: (Int, String) -> Unit) = apply {
+    list(items.toList(), resId) { itemSelected(it, items[it]) }
+}
+
+
+fun AlertDialog.Builder.list(list: List<String>, resId: Int = android.R.layout.select_dialog_item,
+                             itemSelected: (Int) -> Unit) = apply {
+    val arrayAdapter = ArrayAdapter<String>(context, resId)
     arrayAdapter.addAll(list)
     setAdapter(arrayAdapter) { _, what -> itemSelected(what) }
 }
 
-fun AlertDialog.Builder.listRes(list: List<Int>, itemSelected: (Int) -> Unit) = apply {
-    val listString = list.map { context.getString(it) }
-    list(listString, itemSelected)
-}
 
 

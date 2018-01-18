@@ -27,6 +27,9 @@ class FragmentDemoActivity : AppCompatActivity() {
 
     fun fragmentTransition() {
         supportFragmentTransaction { replace(R.id.fragmentContainer, SampleFragment.create()) }
+        supportFragmentTransaction {
+            replace(R.id.fragmentContainer, SampleFragment.create())
+        }
         //....
         val currentFragment = fragmentById<SampleFragment>(R.id.fragmentContainer)
     }

@@ -3,7 +3,9 @@ package com.ivanserbyniuk.androidkdsl.example
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.ivanserbyniuk.androidkdsl.*
 
 class AlertDemoActivity : AppCompatActivity() {
@@ -14,6 +16,7 @@ class AlertDemoActivity : AppCompatActivity() {
         simpleAlert()
         moreComplexAlert()
         simpleCustomAlert()
+        listAlerts()
     }
 
     private fun simpleAlert() = alert {
@@ -22,15 +25,31 @@ class AlertDemoActivity : AppCompatActivity() {
         okButton()
     }
 
-    private fun moreComplexAlert() {
+    private fun moreComplexAlert() = alert {
+        title("title")
+        message("some message")
+        iconVector(android.R.drawable.ic_delete)
+        okButton("accept") { /*do something*/ }
+        cancelButton("close")
+        neutralButton("maybe") { /*do something*/ }
+        cancelable()
+    }
+
+    private fun listAlerts() {
+        //with varargs
         alert {
-            title("title")
-            message("some message")
-            iconVector(android.R.drawable.ic_delete)
-            okButton("accept") { /*do something*/ }
-            cancelButton("close")
-            neutralButton("maybe") { /*do something*/ }
-            cancelable()
+            title(R.string.alert_title)
+            list("One", "Two", "Three") { index, value ->
+                Toast.makeText(context, "Selected value $value with index $index", Toast.LENGTH_SHORT).show()
+            }
+        }
+        //or with list
+        val values = listOf("One", "Two", "Three")
+        alert {
+            title(R.string.alert_title)
+            list(values) { index ->
+                Toast.makeText(context, "Selected value ${values[index]}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -53,6 +72,9 @@ class AlertDemoActivity : AppCompatActivity() {
                 setCancelable(false)
             }
         }
+
     }
+
+    class SempleFragment : Fragment()
 
 }
